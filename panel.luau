@@ -243,7 +243,7 @@ local function renderAddInput()
     ui.row({ gap = 6, align = "center" }, {
       ui.input({
         key = "add-input-" .. addInputRev,
-        placeholder = tr("panel.add_placeholder"),
+        placeholder = tr("add_placeholder"),
         flexGrow = 1,
         onChange = "onAddInputChange",
         onSubmit = "onAddTodo",
@@ -267,7 +267,7 @@ local function todosView(data, count)
   local listContent
   if #rows == 0 then
     listContent = ui.column({ key = "todo-list-" .. currentPageId, flexGrow = 1, align = "center", justify = "center" }, {
-      ui.label({ text = tr("panel.empty"), color = "on_surface_variant" }),
+      ui.label({ text = tr("empty"), color = "on_surface_variant" }),
     })
   else
     -- Keyed per page so switching pages remounts the scroll view instead of
@@ -278,7 +278,7 @@ local function todosView(data, count)
   return ui.column({ flexGrow = 1, gap = 12, align = "stretch" }, {
     ui.row({ align = "center", gap = 8 }, {
       ui.label({
-        text = tr("panel.title") .. " (" .. tostring(count) .. ")",
+        text = tr("panel_title") .. " (" .. tostring(count) .. ")",
         fontSize = 16,
         fontWeight = "bold",
         flexGrow = 1,
@@ -364,13 +364,13 @@ local function pagesView(data)
   return ui.column({ flexGrow = 1, gap = 12, align = "stretch" }, {
     ui.row({ align = "center", gap = 8 }, {
       ui.button({ glyph = "arrow-left", variant = "ghost", onClick = "onCloseManagePages" }),
-      ui.label({ text = tr("panel.manage_pages"), fontSize = 16, fontWeight = "bold", flexGrow = 1 }),
+      ui.label({ text = tr("manage_pages"), fontSize = 16, fontWeight = "bold", flexGrow = 1 }),
     }),
     ui.scroll({ flexGrow = 1, gap = 4 }, rows),
     ui.row({ gap = 6, align = "center" }, {
       ui.input({
         key = "new-page-input-" .. #pages,
-        placeholder = tr("panel.new_page_placeholder"),
+        placeholder = tr("new_page_placeholder"),
         flexGrow = 1,
         onChange = "onNewPageNameChange",
         onSubmit = "onAddPage",

@@ -5,7 +5,7 @@ local PANEL_ID = "2SSK/todoist:panel"
 
 local function render()
   barWidget.setGlyph("clipboard-check")
-  barWidget.setTooltip(noctalia.tr("panel.title"))
+  barWidget.setTooltip(noctalia.tr("panel_title"))
 end
 
 function onClick()

@@ -68,7 +68,7 @@ local function load()
   end
   local decoded = noctalia.json.decode(raw)
   if type(decoded) ~= "table" then
-    noctalia.notifyError(tr("title"), tr("errors.load_failed"))
+    noctalia.notifyError(tr("title"), tr("error_load_failed"))
     return
   end
   todos = decoded.todos or {}
@@ -98,12 +98,12 @@ local function save()
   local tmpPath = path .. ".tmp"
   local ok, err = noctalia.writeFile(tmpPath, encoded)
   if not ok then
-    noctalia.notifyError(tr("title"), err or tr("errors.save_failed"))
+    noctalia.notifyError(tr("title"), err or tr("error_save_failed"))
     return
   end
   local renamed, rerr = noctalia.renameFile(tmpPath, path)
   if not renamed then
-    noctalia.notifyError(tr("title"), rerr or tr("errors.save_failed"))
+    noctalia.notifyError(tr("title"), rerr or tr("error_save_failed"))
     return
   end
   dirty = false
@@ -213,7 +213,7 @@ local function addPage(name)
     return
   end
   if pageNameTaken(trimmed, nil) then
-    noctalia.notifyError(tr("title"), tr("errors.duplicate_page"))
+    noctalia.notifyError(tr("title"), tr("error_duplicate_page"))
     return
   end
   nextPageId += 1
@@ -231,7 +231,7 @@ local function renamePage(id, name)
     return
   end
   if pageNameTaken(trimmed, id) then
-    noctalia.notifyError(tr("title"), tr("errors.duplicate_page"))
+    noctalia.notifyError(tr("title"), tr("error_duplicate_page"))
     return
   end
   page.name = trimmed
@@ -240,11 +240,11 @@ end
 
 local function deletePage(id)
   if id == 0 then
-    noctalia.notifyError(tr("title"), tr("errors.cannot_delete_default_page"))
+    noctalia.notifyError(tr("title"), tr("error_cannot_delete_default_page"))
     return
   end
   if #pages <= 1 then
-    noctalia.notifyError(tr("title"), tr("errors.cannot_delete_last_page"))
+    noctalia.notifyError(tr("title"), tr("error_cannot_delete_last_page"))
     return
   end
   local _, index = findPage(id)
