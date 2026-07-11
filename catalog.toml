@@ -1,0 +1,11 @@
+[[plugin]]
+id           = "2SSK/todoist"
+name         = "Todoist"
+version      = "2.0.0"
+author       = "2SSK"
+license      = "MIT"
+icon         = "clipboard-check"
+description  = "A lightweight todo list with multi-page organization, priorities, and drag reorder."
+deprecated   = false
+min_noctalia = "5.0.0"
+tags         = ["productivity", "todo"]
