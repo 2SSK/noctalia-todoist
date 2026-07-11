@@ -186,47 +186,6 @@ local function deleteTodo(id)
   mutate()
 end
 
-local function reorderTodo(fromId, toId)
-  local fromTodo, fromIndex = findTodo(fromId)
-  local toTodo, toIndex = findTodo(toId)
-  if fromTodo == nil or toTodo == nil then
-    return
-  end
-  if fromIndex == toIndex then
-    return
-  end
-  -- Remove from original position and insert at target position
-  table.remove(todos, fromIndex)
-  -- Adjust toIndex if needed after removal
-  if fromIndex < toIndex then
-    toIndex -= 1
-  end
-  table.insert(todos, toIndex, fromTodo)
-  mutate()
-end
-
-local function moveTodoUp(id)
-  local _, index = findTodo(id)
-  if index == nil or index <= 1 then
-    return
-  end
-  local todo = todos[index]
-  table.remove(todos, index)
-  table.insert(todos, index - 1, todo)
-  mutate()
-end
-
-local function moveTodoDown(id)
-  local _, index = findTodo(id)
-  if index == nil or index >= #todos then
-    return
-  end
-  local todo = todos[index]
-  table.remove(todos, index)
-  table.insert(todos, index + 1, todo)
-  mutate()
-end
-
 local function clearCompleted()
   local filtered = {}
   for _, t in ipairs(todos) do
@@ -319,12 +278,6 @@ local function handleCommand(cmd)
     updateTodoText(cmd.id, cmd.text)
   elseif a == "delete" then
     deleteTodo(cmd.id)
-  elseif a == "reorder" then
-    reorderTodo(cmd.fromId, cmd.toId)
-  elseif a == "moveUp" then
-    moveTodoUp(cmd.id)
-  elseif a == "moveDown" then
-    moveTodoDown(cmd.id)
   elseif a == "setPage" then
     setPage(cmd.pageId)
   elseif a == "clearCompleted" then

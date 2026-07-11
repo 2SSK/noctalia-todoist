@@ -6,7 +6,7 @@ author       = "2SSK"
 license      = "MIT"
 icon         = "clipboard-check"
 tags         = ["productivity", "todo"]
-description  = "A lightweight todo list with multi-page organization, priorities, and drag reorder."
+description  = "A lightweight todo list with multi-page organization and priorities."
 
 [[setting]]
 key             = "show_completed"
