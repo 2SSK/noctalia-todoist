@@ -95,7 +95,7 @@ end
 
 -- ── Todo list view ───────────────────────────────────────────────────────
 
-local function renderTodoRow(todo, index)
+local function renderTodoRow(todo, index, totalCount)
   local isEditing = editingId == todo.id
   local children = {}
 
@@ -118,6 +118,28 @@ local function renderTodoRow(todo, index)
       noctalia.state.set("command", { action = "toggle", id = todo.id })
     end),
   }, checkboxChildren))
+
+  -- Reorder arrows (move up/down)
+  if not todo.completed then
+    table.insert(children, ui.column({ gap = 0, align = "center" }, {
+      ui.button({
+        glyph = "chevron-up",
+        variant = "ghost",
+        enabled = index > 1,
+        onClick = rowCb("onMoveUp", index, function()
+          noctalia.state.set("command", { action = "moveUp", id = todo.id })
+        end),
+      }),
+      ui.button({
+        glyph = "chevron-down",
+        variant = "ghost",
+        enabled = index < totalCount,
+        onClick = rowCb("onMoveDown", index, function()
+          noctalia.state.set("command", { action = "moveDown", id = todo.id })
+        end),
+      }),
+    }))
+  end
 
   if isEditing then
     table.insert(children, ui.input({
@@ -259,8 +281,9 @@ local function todosView(data, count)
   local showCompleted = noctalia.getConfig("show_completed")
 
   local rows = {}
-  for i, todo in ipairs(filteredTodos(data.todos or {}, currentPageId, showCompleted)) do
-    table.insert(rows, renderTodoRow(todo, i))
+  local filtered = filteredTodos(data.todos or {}, currentPageId, showCompleted)
+  for i, todo in ipairs(filtered) do
+    table.insert(rows, renderTodoRow(todo, i, #filtered))
   end
 
   local listContent
